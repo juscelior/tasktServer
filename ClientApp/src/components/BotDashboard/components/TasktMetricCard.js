@@ -27,7 +27,7 @@ export default class TasktMetricCard extends React.Component {
                 this.GetAPIData();
             }
                 .bind(this),
-            1000
+            15000
         );
         var apiCall = this.state.api + "?startDate=" + this.state.startDate;
         console.log('running ' + apiCall);

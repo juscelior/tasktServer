@@ -59,16 +59,16 @@ namespace tasktServer.Controllers
                     var worker = new Worker
                     {
                         WorkerID = pool.WorkerPoolID,
-                        UserName = string.Concat("Pool '", pool.WorkerPoolName, "'")                     
+                        UserName = string.Concat("Pool '", pool.WorkerPoolName, "'")
                     };
 
                     workers.Add(worker);
 
                 }
-                   
 
 
-        
+
+
                 return Ok(workers);
             }
 
@@ -174,7 +174,7 @@ namespace tasktServer.Controllers
                             }
 
 
-                          
+
                         }
                         else
                         {
@@ -208,8 +208,8 @@ namespace tasktServer.Controllers
                                 }
 
                             }
-                                                        
-                        }                       
+
+                        }
                     }
 
                     context.SaveChanges();
@@ -389,7 +389,7 @@ namespace tasktServer.Controllers
                 {
                     taskToUpdate.TaskFinished = DateTime.Now;
                 }
-       
+
                 taskToUpdate.UserName = userName;
                 taskToUpdate.MachineName = machineName;
                 taskToUpdate.Remark = remark;
@@ -425,7 +425,7 @@ namespace tasktServer.Controllers
                 var workerRecord = context.Workers.Where(f => f.WorkerID == request.workerID).FirstOrDefault();
 
                 //if worker wasnt found then search for pool
-          
+
                 if (workerRecord == null)
                 {
                     //find from pool
@@ -479,11 +479,11 @@ namespace tasktServer.Controllers
                                    PublishedScriptID = publishedScripts.PublishedScriptID,
                                    ScriptData = publishedScripts.ScriptData,
                                    ScriptType = publishedScripts.ScriptType,
-                                  WorkerID = publishedScripts.WorkerID,
-                                  MachineName = worker.MachineName,
-                                  WorkerName = worker.UserName
-                                 
-                              }).ToList();
+                                   WorkerID = publishedScripts.WorkerID,
+                                   MachineName = worker.MachineName,
+                                   WorkerName = worker.UserName
+
+                               }).ToList();
 
 
 
@@ -492,7 +492,7 @@ namespace tasktServer.Controllers
 
             }
 
-          
+
 
         }
 
@@ -516,7 +516,7 @@ namespace tasktServer.Controllers
                     context.SaveChanges();
                     return Ok("The script has been successfully published.");
                 }
-              
+
             }
 
 
@@ -528,11 +528,9 @@ namespace tasktServer.Controllers
         {
             using (var context = new Models.tasktDatabaseContext())
             {
-               var exists = context.PublishedScripts.Where(f => f.WorkerID == workerID && f.FriendlyName == friendlyName).Any();
-               return Ok(exists);
+                var exists = context.PublishedScripts.Where(f => f.WorkerID == workerID && f.FriendlyName == friendlyName).Any();
+                return Ok(exists);
             }
-
-
         }
 
         [HttpGet("/api/Assignments/All")]
@@ -543,7 +541,6 @@ namespace tasktServer.Controllers
                 var assignments = context.Assignments.ToList().OrderByDescending(f => f.NewTaskDue);
                 return Ok(assignments);
             }
-
         }
 
         [HttpPost("/api/Assignments/Add")]
@@ -556,17 +553,14 @@ namespace tasktServer.Controllers
                 return Ok(assignment);
 
             }
-
-
-
         }
+
         [HttpPost("/api/BotStore/Add")]
         public IActionResult AddDataToBotStore([FromBody] BotStoreModel storeData)
         {
 
             using (var context = new Models.tasktDatabaseContext())
             {
-
                 if (!context.Workers.Any(f => f.WorkerID == storeData.LastUpdatedBy))
                 {
                     return Unauthorized();

@@ -26,7 +26,7 @@ export default class TopWorkers extends React.Component {
                 this.GetAPIData();
             }
                 .bind(this),
-            1000
+            15000
         );
 
         console.log('running ' + this.state.api);
